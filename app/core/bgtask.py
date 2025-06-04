@@ -4,28 +4,28 @@ from .ctx import CTX_BG_TASKS
 
 
 class BgTasks:
-    """后台任务统一管理"""
+    """백그라운드 작업 일괄 관리"""
 
     @classmethod
     async def init_bg_tasks_obj(cls):
-        """实例化后台任务，并设置到上下文"""
+        """백그라운드 작업 인스턴스화 및 컨텍스트 설정"""
         bg_tasks = BackgroundTasks()
         CTX_BG_TASKS.set(bg_tasks)
 
     @classmethod
     async def get_bg_tasks_obj(cls):
-        """从上下文中获取后台任务实例"""
+        """컨텍스트에서 백그라운드 작업 인스턴스 가져오기"""
         return CTX_BG_TASKS.get()
 
     @classmethod
     async def add_task(cls, func, *args, **kwargs):
-        """添加后台任务"""
+        """백그라운드 작업 추가"""
         bg_tasks = await cls.get_bg_tasks_obj()
         bg_tasks.add_task(func, *args, **kwargs)
 
     @classmethod
     async def execute_tasks(cls):
-        """执行后台任务，一般是请求结果返回之后执行"""
+        """백그라운드 작업 실행 (일반적으로 요청 결과 반환 후 실행)"""
         bg_tasks = await cls.get_bg_tasks_obj()
         if bg_tasks.tasks:
             await bg_tasks()

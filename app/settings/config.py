@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     VERSION: str = "0.1.0"
     APP_TITLE: str = "Vue FastAPI Admin"
     PROJECT_NAME: str = "Vue FastAPI Admin"
-    APP_DESCRIPTION: str = "Description"
+    APP_DESCRIPTION: str = "애플리케이션 설명"
 
     CORS_ORIGINS: typing.List = ["*"]
     CORS_ALLOW_CREDENTIALS: bool = True
@@ -26,10 +26,10 @@ class Settings(BaseSettings):
     TORTOISE_ORM: dict = {
         "connections": {
             # SQLite configuration
-            "sqlite": {
-                "engine": "tortoise.backends.sqlite",
-                "credentials": {"file_path": f"{BASE_DIR}/db.sqlite3"},  # Path to SQLite database file
-            },
+            # "sqlite": {
+            #     "engine": "tortoise.backends.sqlite",
+            #     "credentials": {"file_path": f"{BASE_DIR}/db.sqlite3"},  # Path to SQLite database file
+            # },
             # MySQL/MariaDB configuration
             # Install with: tortoise-orm[asyncmy]
             # "mysql": {
@@ -44,16 +44,16 @@ class Settings(BaseSettings):
             # },
             # PostgreSQL configuration
             # Install with: tortoise-orm[asyncpg]
-            # "postgres": {
-            #     "engine": "tortoise.backends.asyncpg",
-            #     "credentials": {
-            #         "host": "localhost",  # Database host address
-            #         "port": 5432,  # Database port
-            #         "user": "yourusername",  # Database username
-            #         "password": "yourpassword",  # Database password
-            #         "database": "yourdatabase",  # Database name
-            #     },
-            # },
+            "postgres": {
+                "engine": "tortoise.backends.asyncpg",
+                "credentials": {
+                    "host": "YOUR_SUPABASE_HOST",  # Replace with your Supabase host
+                    "port": 5432,  # Default PostgreSQL port, change if Supabase uses a different one
+                    "user": "YOUR_SUPABASE_USER",  # Replace with your Supabase user
+                    "password": "YOUR_SUPABASE_PASSWORD",  # Replace with your Supabase password
+                    "database": "YOUR_SUPABASE_DBNAME",  # Replace with your Supabase database name
+                },
+            },
             # MSSQL/Oracle configuration
             # Install with: tortoise-orm[asyncodbc]
             # "oracle": {
@@ -82,7 +82,7 @@ class Settings(BaseSettings):
         "apps": {
             "models": {
                 "models": ["app.models", "aerich.models"],
-                "default_connection": "sqlite",
+                "default_connection": "postgres", # Changed from sqlite
             },
         },
         "use_tz": False,  # Whether to use timezone-aware datetimes
