@@ -23,7 +23,7 @@ class UserCreate(BaseModel):
     is_active: Optional[bool] = True
     is_superuser: Optional[bool] = False
     role_ids: Optional[List[int]] = []
-    dept_id: Optional[int] = Field(0, description="部门ID")
+    dept_id: Optional[int] = Field(0, description="부서 ID")
 
     def create_dict(self):
         return self.model_dump(exclude_unset=True, exclude={"role_ids"})
@@ -40,5 +40,5 @@ class UserUpdate(BaseModel):
 
 
 class UpdatePassword(BaseModel):
-    old_password: str = Field(description="旧密码")
-    new_password: str = Field(description="新密码")
+    old_password: str = Field(description="이전 비밀번호")
+    new_password: str = Field(description="새 비밀번호")

@@ -1,8 +1,6 @@
 import asyncio
 from datetime import datetime
-
 from tortoise import fields, models
-
 from app.settings import settings
 
 

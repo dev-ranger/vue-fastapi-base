@@ -2,7 +2,7 @@ import uvicorn
 from uvicorn.config import LOGGING_CONFIG
 
 if __name__ == "__main__":
-    # 修改默认日志配置
+    # 기본 로그 구성 변경
     LOGGING_CONFIG["formatters"]["default"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
     LOGGING_CONFIG["formatters"]["default"]["datefmt"] = "%Y-%m-%d %H:%M:%S"
     LOGGING_CONFIG["formatters"]["access"][

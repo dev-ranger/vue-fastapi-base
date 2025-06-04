@@ -46,7 +46,7 @@ async def get_user(
     return Success(data=user_dict)
 
 
-@router.post("/create", summary="创建用户")
+@router.post("/create", summary="Create user")
 async def create_user(
     user_in: UserCreate,
 ):
@@ -58,7 +58,7 @@ async def create_user(
     return Success(msg="Created Successfully")
 
 
-@router.post("/update", summary="更新用户")
+@router.post("/update", summary="update user")
 async def update_user(
     user_in: UserUpdate,
 ):
@@ -67,15 +67,15 @@ async def update_user(
     return Success(msg="Updated Successfully")
 
 
-@router.delete("/delete", summary="删除用户")
+@router.delete("/delete", summary="Delete user")
 async def delete_user(
-    user_id: int = Query(..., description="用户ID"),
+    user_id: int = Query(..., description="user id"),
 ):
     await user_controller.remove(id=user_id)
     return Success(msg="Deleted Successfully")
 
 
-@router.post("/reset_password", summary="重置密码")
-async def reset_password(user_id: int = Body(..., description="用户ID", embed=True)):
+@router.post("/reset_password", summary="reset password")
+async def reset_password(user_id: int = Body(..., description="user id", embed=True)):
     await user_controller.reset_password(user_id)
-    return Success(msg="密码已重置为123456")
+    return Success(msg="비밀번호가 재설정되었습니다.")

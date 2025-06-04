@@ -8,13 +8,13 @@ from app.schemas.apis import *
 router = APIRouter()
 
 
-@router.get("/list", summary="查看API列表")
+@router.get("/list", summary="API 목록 보기")
 async def list_api(
-    page: int = Query(1, description="页码"),
-    page_size: int = Query(10, description="每页数量"),
-    path: str = Query(None, description="API路径"),
-    summary: str = Query(None, description="API简介"),
-    tags: str = Query(None, description="API模块"),
+    page: int = Query(1, description="페이지 번호"),
+    page_size: int = Query(10, description="페이지 수"),
+    path: str = Query(None, description="API 경로"),
+    summary: str = Query(None, description="API 소개"),
+    tags: str = Query(None, description="API 모듈"),
 ):
     q = Q()
     if path:
@@ -28,7 +28,7 @@ async def list_api(
     return SuccessExtra(data=data, total=total, page=page, page_size=page_size)
 
 
-@router.get("/get", summary="查看Api")
+@router.get("/get", summary="Api View")
 async def get_api(
     id: int = Query(..., description="Api"),
 ):
@@ -37,7 +37,7 @@ async def get_api(
     return Success(data=data)
 
 
-@router.post("/create", summary="创建Api")
+@router.post("/create", summary="Api Create")
 async def create_api(
     api_in: ApiCreate,
 ):
@@ -45,7 +45,7 @@ async def create_api(
     return Success(msg="Created Successfully")
 
 
-@router.post("/update", summary="更新Api")
+@router.post("/update", summary="Api Update")
 async def update_api(
     api_in: ApiUpdate,
 ):
@@ -53,7 +53,7 @@ async def update_api(
     return Success(msg="Update Successfully")
 
 
-@router.delete("/delete", summary="删除Api")
+@router.delete("/delete", summary="Api Delete")
 async def delete_api(
     api_id: int = Query(..., description="ApiID"),
 ):
@@ -61,7 +61,7 @@ async def delete_api(
     return Success(msg="Deleted Success")
 
 
-@router.post("/refresh", summary="刷新API列表")
+@router.post("/refresh", summary="API Refresh")
 async def refresh_api():
     await api_controller.refresh_api()
     return Success(msg="OK")

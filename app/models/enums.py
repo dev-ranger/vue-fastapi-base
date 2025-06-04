@@ -1,6 +1,5 @@
 from enum import Enum, StrEnum
 
-
 class EnumBase(Enum):
     @classmethod
     def get_member_values(cls):

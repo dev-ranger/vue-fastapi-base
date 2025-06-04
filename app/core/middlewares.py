@@ -52,15 +52,15 @@ class HttpAuditLogMiddleware(BaseHTTPMiddleware):
         self.methods = methods
         self.exclude_paths = exclude_paths
         self.audit_log_paths = ["/api/v1/auditlog/list"]
-        self.max_body_size = 1024 * 1024  # 1MB 响应体大小限制
+        self.max_body_size = 1024 * 1024  # 응답 크기 제한: 1MB
 
     async def get_request_args(self, request: Request) -> dict:
         args = {}
-        # 获取查询参数
+        # 쿼리 매개변수 가져오기
         for key, value in request.query_params.items():
             args[key] = value
 
-        # 获取请求体
+        # 요청 본문 가져오기
         if request.method in ["POST", "PUT", "PATCH"]:
             try:
                 body = await request.json()

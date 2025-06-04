@@ -10,7 +10,7 @@ from app.settings import settings
 
 class AuthControl:
     @classmethod
-    async def is_authed(cls, token: str = Header(..., description="token验证")) -> Optional["User"]:
+    async def is_authed(cls, token: str = Header(..., description="token 확인")) -> Optional["User"]:
         try:
             if token == "dev":
                 user = await User.filter().first()
@@ -24,9 +24,9 @@ class AuthControl:
             CTX_USER_ID.set(int(user_id))
             return user
         except jwt.DecodeError:
-            raise HTTPException(status_code=401, detail="无效的Token")
+            raise HTTPException(status_code=401, detail="Invalid Token")
         except jwt.ExpiredSignatureError:
-            raise HTTPException(status_code=401, detail="登录已过期")
+            raise HTTPException(status_code=401, detail="Login expired")
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"{repr(e)}")
 

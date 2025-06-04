@@ -16,7 +16,7 @@ from app.utils.password import get_password_hash, verify_password
 router = APIRouter()
 
 
-@router.post("/access_token", summary="获取token")
+@router.post("/access_token", summary="token 가져오기")
 async def login_access_token(credentials: CredentialsSchema):
     user: User = await user_controller.authenticate(credentials)
     await user_controller.update_last_login(user.id)
@@ -37,7 +37,7 @@ async def login_access_token(credentials: CredentialsSchema):
     return Success(data=data.model_dump())
 
 
-@router.get("/userinfo", summary="查看用户信息", dependencies=[DependAuth])
+@router.get("/userinfo", summary="사용자 정보 보기", dependencies=[DependAuth])
 async def get_userinfo():
     user_id = CTX_USER_ID.get()
     user_obj = await user_controller.get(id=user_id)
@@ -46,7 +46,7 @@ async def get_userinfo():
     return Success(data=data)
 
 
-@router.get("/usermenu", summary="查看用户菜单", dependencies=[DependAuth])
+@router.get("/usermenu", summary="사용자 메뉴 보기", dependencies=[DependAuth])
 async def get_user_menu():
     user_id = CTX_USER_ID.get()
     user_obj = await User.filter(id=user_id).first()
@@ -74,7 +74,7 @@ async def get_user_menu():
     return Success(data=res)
 
 
-@router.get("/userapi", summary="查看用户API", dependencies=[DependAuth])
+@router.get("/userapi", summary="사용자 API 보기", dependencies=[DependAuth])
 async def get_user_api():
     user_id = CTX_USER_ID.get()
     user_obj = await User.filter(id=user_id).first()
@@ -91,13 +91,13 @@ async def get_user_api():
     return Success(data=apis)
 
 
-@router.post("/update_password", summary="修改密码", dependencies=[DependAuth])
+@router.post("/update_password", summary="비밀번호 변경", dependencies=[DependAuth])
 async def update_user_password(req_in: UpdatePassword):
     user_id = CTX_USER_ID.get()
     user = await user_controller.get(user_id)
     verified = verify_password(req_in.old_password, user.password)
     if not verified:
-        return Fail(msg="旧密码验证错误！")
+        return Fail(msg="이전 비밀번호 확인 오류!")
     user.password = get_password_hash(req_in.new_password)
     await user.save()
-    return Success(msg="修改成功")
+    return Success(msg="변경 완료")

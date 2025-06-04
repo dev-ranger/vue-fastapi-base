@@ -12,13 +12,13 @@ class DeptController(CRUDBase[Dept, DeptCreate, DeptUpdate]):
 
     async def get_dept_tree(self, name):
         q = Q()
-        # 获取所有未被软删除的部门
+        # 소프트 삭제되지 않은 모든 부서 가져오기
         q &= Q(is_deleted=False)
         if name:
             q &= Q(name__contains=name)
         all_depts = await self.model.filter(q).order_by("order")
 
-        # 辅助函数，用于递归构建部门树
+        # 부서 트리를 재귀적으로 구축하는 도우미 함수
         def build_tree(parent_id):
             return [
                 {
@@ -33,7 +33,7 @@ class DeptController(CRUDBase[Dept, DeptCreate, DeptUpdate]):
                 if dept.parent_id == parent_id
             ]
 
-        # 从顶级部门（parent_id=0）开始构建部门树
+        # 최상위 부서(parent_id=0)부터 시작하여 부서 트리를 구축합니다.
         dept_tree = build_tree(0)
         return dept_tree
 
@@ -45,17 +45,17 @@ class DeptController(CRUDBase[Dept, DeptCreate, DeptUpdate]):
         for i in parent_depts:
             print(i.ancestor, i.descendant)
         dept_closure_objs: list[DeptClosure] = []
-        # 插入父级关系
+        # 상위 관계 삽입
         for item in parent_depts:
             dept_closure_objs.append(DeptClosure(ancestor=item.ancestor, descendant=obj.id, level=item.level + 1))
-        # 插入自身x
+        # self x 삽입
         dept_closure_objs.append(DeptClosure(ancestor=obj.id, descendant=obj.id, level=0))
-        # 创建关系
+        # 관계 생성
         await DeptClosure.bulk_create(dept_closure_objs)
 
     @atomic()
     async def create_dept(self, obj_in: DeptCreate):
-        # 创建
+        # 생성
         if obj_in.parent_id != 0:
             await self.get(id=obj_in.parent_id)
         new_obj = await self.create(obj_in=obj_in)
@@ -64,22 +64,22 @@ class DeptController(CRUDBase[Dept, DeptCreate, DeptUpdate]):
     @atomic()
     async def update_dept(self, obj_in: DeptUpdate):
         dept_obj = await self.get(id=obj_in.id)
-        # 更新部门关系
+        # 부서 관계 업데이트
         if dept_obj.parent_id != obj_in.parent_id:
             await DeptClosure.filter(ancestor=dept_obj.id).delete()
             await DeptClosure.filter(descendant=dept_obj.id).delete()
             await self.update_dept_closure(dept_obj)
-        # 更新部门信息
+        # 부서 정보 업데이트
         dept_obj.update_from_dict(obj_in.model_dump(exclude_unset=True))
         await dept_obj.save()
 
     @atomic()
     async def delete_dept(self, dept_id: int):
-        # 删除部门
+        # 부서 삭제
         obj = await self.get(id=dept_id)
         obj.is_deleted = True
         await obj.save()
-        # 删除关系
+        # 관계 삭제
         await DeptClosure.filter(descendant=dept_id).delete()
 
 

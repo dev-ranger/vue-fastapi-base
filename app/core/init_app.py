@@ -212,15 +212,15 @@ async def init_roles():
             desc="일반 사용자 역할",
         )
 
-        # 分配所有API给管理员角色
+        # 모든 API를 관리자 역할에 할당
         all_apis = await Api.all()
         await admin_role.apis.add(*all_apis)
-        # 分配所有菜单给管理员和普通用户
+        # 모든 메뉴를 관리자와 일반 사용자에게 할당
         all_menus = await Menu.all()
         await admin_role.menus.add(*all_menus)
         await user_role.menus.add(*all_menus)
 
-        # 为普通用户分配基本API
+        # 일반 사용자를 위한 기본 API 할당
         basic_apis = await Api.filter(Q(method__in=["GET"]) | Q(tags="기본 모듈"))
         await user_role.apis.add(*basic_apis)
 
