@@ -1,0 +1,62 @@
+{
+  "lang": "한국어",
+  "app_name": "Vue FastAPI Admin",
+  "header": {
+    "label_profile": "개인 정보",
+    "label_logout": "로그아웃",
+    "label_logout_dialog_title": "알림",
+    "text_logout_confirm": "로그아웃 하시겠습니까?",
+    "text_logout_success": "로그아웃 되었습니다"
+  },
+  "views": {
+    "login": {
+      "text_login": "로그인",
+      "message_input_username_password": "사용자 이름과 비밀번호를 입력하세요",
+      "message_verifying": "확인 중...",
+      "message_login_success": "로그인 성공"
+    },
+    "workbench": {
+      "label_workbench": "작업 공간",
+      "text_hello": "안녕하세요, {username}님",
+      "text_welcome": "오늘도 활기찬 하루 되세요!",
+      "label_number_of_items": "항목 수",
+      "label_upcoming": "예정",
+      "label_information": "정보",
+      "label_project": "프로젝트",
+      "label_more": "더 보기"
+    },
+    "profile": {
+      "label_profile": "개인 센터",
+      "label_modify_information": "정보 수정",
+      "label_change_password": "비밀번호 변경",
+      "label_avatar": "아바타",
+      "label_username": "사용자 이름",
+      "label_email": "이메일",
+      "label_old_password": "이전 비밀번호",
+      "label_new_password": "새 비밀번호",
+      "label_confirm_password": "비밀번호 확인",
+      "placeholder_username": "이름을 입력하세요",
+      "placeholder_email": "이메일을 입력하세요",
+      "placeholder_old_password": "이전 비밀번호를 입력하세요",
+      "placeholder_new_password": "새 비밀번호를 입력하세요",
+      "placeholder_confirm_password": "새 비밀번호를 다시 입력하세요",
+      "message_username_required": "닉네임을 입력하세요",
+      "message_old_password_required": "이전 비밀번호를 입력하세요",
+      "message_new_password_required": "새 비밀번호를 입력하세요",
+      "message_password_confirmation_required": "비밀번호를 다시 입력하세요",
+      "message_password_confirmation_diff": "두 비밀번호가 일치하지 않습니다"
+    },
+    "errors": {
+      "label_error": "오류 페이지",
+      "text_back_to_home": "홈으로 돌아가기"
+    }
+  },
+  "common": {
+    "text": {
+      "update_success": "수정 성공"
+    },
+    "buttons": {
+      "update": "수정"
+    }
+  }
+}
