@@ -15,7 +15,7 @@ class SettingNotFound(Exception):
 async def DoesNotExistHandle(req: Request, exc: DoesNotExist) -> JSONResponse:
     content = dict(
         code=404,
-        msg=f"Object has not found, exc: {exc}, query_params: {req.query_params}",
+        msg=f"객체를 찾을 수 없습니다, exc: {exc}, query_params: {req.query_params}",
     )
     return JSONResponse(content=content, status_code=404)
 
@@ -23,7 +23,7 @@ async def DoesNotExistHandle(req: Request, exc: DoesNotExist) -> JSONResponse:
 async def IntegrityHandle(_: Request, exc: IntegrityError) -> JSONResponse:
     content = dict(
         code=500,
-        msg=f"IntegrityError，{exc}",
+        msg=f"무결성 오류，{exc}",
     )
     return JSONResponse(content=content, status_code=500)
 

@@ -1,19 +1,19 @@
-## 快速开始
+## 빠른 시작
 
-进入前端目录
+프론트엔드 디렉토리로 이동
 
 ```sh
 cd web
 ```
 
-安装依赖(建议使用pnpm: https://pnpm.io/zh/installation)
+의존성 설치 (pnpm 사용 권장: https://pnpm.io/zh/installation)
 
 ```sh
-npm i -g pnpm # 已安装可忽略
-pnpm i # 或者 npm i
+npm i -g pnpm # 이미 설치된 경우 무시
+pnpm i # 또는 npm i
 ```
 
-启动
+시작
 
 ```sh
 pnpm dev
