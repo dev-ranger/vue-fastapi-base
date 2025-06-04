@@ -83,7 +83,7 @@ async def init_menus():
     if not menus:
         parent_menu = await Menu.create(
             menu_type=MenuType.CATALOG,
-            name="系统管理",
+            name="시스템 관리",
             path="/system",
             order=1,
             parent_id=0,
@@ -96,7 +96,7 @@ async def init_menus():
         children_menu = [
             Menu(
                 menu_type=MenuType.MENU,
-                name="用户管理",
+                name="사용자 관리",
                 path="user",
                 order=1,
                 parent_id=parent_menu.id,
@@ -107,7 +107,7 @@ async def init_menus():
             ),
             Menu(
                 menu_type=MenuType.MENU,
-                name="角色管理",
+                name="역할 관리",
                 path="role",
                 order=2,
                 parent_id=parent_menu.id,
@@ -118,7 +118,7 @@ async def init_menus():
             ),
             Menu(
                 menu_type=MenuType.MENU,
-                name="菜单管理",
+                name="메뉴 관리",
                 path="menu",
                 order=3,
                 parent_id=parent_menu.id,
@@ -129,7 +129,7 @@ async def init_menus():
             ),
             Menu(
                 menu_type=MenuType.MENU,
-                name="API管理",
+                name="API 관리",
                 path="api",
                 order=4,
                 parent_id=parent_menu.id,
@@ -140,7 +140,7 @@ async def init_menus():
             ),
             Menu(
                 menu_type=MenuType.MENU,
-                name="部门管理",
+                name="부서 관리",
                 path="dept",
                 order=5,
                 parent_id=parent_menu.id,
@@ -151,7 +151,7 @@ async def init_menus():
             ),
             Menu(
                 menu_type=MenuType.MENU,
-                name="审计日志",
+                name="감사 로그",
                 path="auditlog",
                 order=6,
                 parent_id=parent_menu.id,
@@ -164,7 +164,7 @@ async def init_menus():
         await Menu.bulk_create(children_menu)
         await Menu.create(
             menu_type=MenuType.MENU,
-            name="一级菜单",
+            name="최상위 메뉴",
             path="/top-menu",
             order=2,
             parent_id=0,
@@ -204,12 +204,12 @@ async def init_roles():
     roles = await Role.exists()
     if not roles:
         admin_role = await Role.create(
-            name="管理员",
-            desc="管理员角色",
+            name="관리자",
+            desc="관리자 역할",
         )
         user_role = await Role.create(
-            name="普通用户",
-            desc="普通用户角色",
+            name="일반 사용자",
+            desc="일반 사용자 역할",
         )
 
         # 分配所有API给管理员角色
@@ -221,7 +221,7 @@ async def init_roles():
         await user_role.menus.add(*all_menus)
 
         # 为普通用户分配基本API
-        basic_apis = await Api.filter(Q(method__in=["GET"]) | Q(tags="基础模块"))
+        basic_apis = await Api.filter(Q(method__in=["GET"]) | Q(tags="기본 모듈"))
         await user_role.apis.add(*basic_apis)
 
 
